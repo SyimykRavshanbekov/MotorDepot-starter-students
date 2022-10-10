@@ -8,6 +8,6 @@ public interface Service {
 
     void startRepair(int truckId);
 
-    void changeTruckState();
+    void changeTruckState(int truckId);
 
 }

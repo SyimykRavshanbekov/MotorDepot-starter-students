@@ -42,7 +42,7 @@ public class Main {
                 }
                 case "2" -> service.startDriving(truckID);
                 case "3" -> service.startRepair(truckID);
-                case "4" -> service.changeTruckState();
+                case "4" -> service.changeTruckState(truckID);
             }
         }
     }

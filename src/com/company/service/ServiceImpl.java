@@ -29,6 +29,7 @@ public class ServiceImpl implements Service{
     }
 
     public void seeDrivers(){
+
         System.out.println();
 
         for (Driver d: drivers) {
@@ -59,6 +60,7 @@ public class ServiceImpl implements Service{
                     if (d.getTruckName().equals(x.getTruckName())){
                        d.setTruckName("null");
                     }
+                    
                     if (d.getTruckName().equals("") && counter == 0) {
                         counter++;
                         x.setDriver(d.getName());
@@ -76,12 +78,9 @@ public class ServiceImpl implements Service{
 
     @Override
     public void startDriving(int truckId) {
-        Optional<Truck> optional = trucks.stream().filter(x -> x.getId() == truckId &&  !x.getDriver().equals("")).findFirst();
+        Optional<Truck> optional = trucks.stream().filter(x -> x.getId() == truckId &&  !x.getDriver().equals(" ")).findFirst();
 
-        if (optional.isEmpty()) {
-            System.out.println("Track not found or truck don't have driver!");
-        }
-        else if(optional.isPresent()){
+        if (optional.isPresent()) {
             optional.ifPresent(x -> x.setState(State.ROUTE));
             System.out.println("-----Truck on the road------");
         } else {
@@ -101,8 +100,14 @@ public class ServiceImpl implements Service{
     }
 
     @Override
-    public void changeTruckState() {
+    public void changeTruckState(int truckId) {
+        Optional<Truck> optional = trucks.stream().filter(x -> x.getId() == truckId).findFirst();
 
+        if (optional.isPresent()) {
+            optional.ifPresent(x -> x.setState(State.BASE));
+            System.out.println("-----Truck is base------");
+        }
+        else System.out.println("Track not found!");
     }
 }
 
